@@ -67,10 +67,8 @@ def scan_now(start_port, end_port, victim_ip, zombie_ip,os_detection):
 				# send SYN packet to victim from attacker
 				attack_victim = sr1(IP(dst=victim_ip, src= zombie_ip)/TCP(dport=port,flags='S'),timeout=2,verbose=0)
 
-				# send SYN/ACL packet to zombie from attacker again
-				attack_zombie_again = sr1(IP(dst=zombie_ip)/TCP(dport=port,flags='SA'),timeout=2,verbose=0)
-
-				# print(attack_victim.display())
+				# send SYN/ACK packet to zombie from attacker again
+				attack_zombie_again = sr1(IP(dst=zombie_ip)/TCP(dport=port,flags='SA'),timeout=2,verbose=0)				
 
 				# if ipid value after all operation is increased by 2, then port is open
 				if attack_zombie_again[IP].id == (attack_zombie[IP].id + 2):
